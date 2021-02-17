@@ -70,8 +70,14 @@ class searching
         $pattern_email= "/\b[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+.[a-zA-Z]{2,4}\b/";
         if(preg_match_all($pattern_email, $input_new, $output) )
         {
-            $email=$output[0][0];    
+            $email=$output[0][0];
+            
+           // for ($i=0; $i < sizeof($email); $i++) 
+           // {   
+               // array_push($expert_and_company, $email); 
+           // }
         }
+
         $input_new= preg_replace('/\b[\d]+\b/', '', $input_new); 
         $input_new = preg_replace("/\b[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+.[a-zA-Z]{2,4}\b/",'',$input_new);  
         $pattern_string = "/\b[a-zA-Z_]+\b|\b\w*\d\w*\b/";
@@ -84,14 +90,15 @@ class searching
             }
              
         }
+        
         $data['string']=$expert_and_company; 
         array_push($data['string'], $email); 
-        $data['email']=$email;    
+        $data['email']=$email; 
+       // print_r($query_data);die;   
         if($data['string'][0]='' AND $data['email']='')
         {
             echo "string";
         }
-
         foreach ($query_data as $key => $value_q)
         {   
             if(!empty($data['string']))
@@ -113,6 +120,7 @@ class searching
                     array_push($get_ids,$value_q['get_id']);   
                 }
             }
+           // print_r($value_q);die;
             if(!empty($data['email']))
             {
                 if ($value_q['type']=='email') 
@@ -273,6 +281,7 @@ class searching
 
     function get_ids($result,$string,$get_ids)
     {   
+
         for($i=0;$i<sizeof($get_ids);$i++)
         {   
            if(!isset($ids[$get_ids[$i]])) 
